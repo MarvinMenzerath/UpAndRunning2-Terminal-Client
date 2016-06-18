@@ -17,11 +17,11 @@ func PrintWrongArguments() {
 func PrintHelp() {
 	println("HELP:")
 	PrintAsTable([]string{"Command", "Short Command", "Description"}, [][]string{
-		{"--help", "-h", "Prints this help."},
-		{"--version", "-v", "Prints the client's version."},
-		{"--websites", "-w", "Prints every website's status in a table."},
-		{"--status [URL]", "-s [URL]", "Prints the website's status-information."},
-		{"--results [URL] {limit} {offset}", "-r [URL] {limit} {offset}", "Prints the website's last results."},
+		{"help", "-h", "Prints this help."},
+		{"version", "-v", "Prints the client's version."},
+		{"websites", "-w", "Prints every website's status in a table."},
+		{"status [URL]", "-s [URL]", "Prints the website's current status-information."},
+		{"results [URL] {limit} {offset}", "-r [URL] {limit} {offset}", "Prints the website's latest results."},
 	})
 }
 
