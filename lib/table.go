@@ -51,7 +51,7 @@ func PrintAsTable(titles []string, data [][]string) {
 			print("-")
 		}
 		if index != len(rowWidth)-1 {
-			print("|")
+			print("+")
 		}
 	}
 	println()
