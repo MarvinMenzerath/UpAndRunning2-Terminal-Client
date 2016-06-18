@@ -1,6 +1,9 @@
 package lib
 
-import "os"
+import (
+	"os"
+	"runtime"
+)
 
 func PrintHead() {
 	println("#################################")
@@ -26,6 +29,6 @@ func PrintHelp() {
 }
 
 func PrintVersion(version string) {
-	println("You are currently using v" + version + " of this client.")
+	println("You are currently using v" + version + " [" + runtime.Version() + "@" + runtime.GOOS + "_" + runtime.GOARCH + "] of this client.")
 	println("Please check https://github.com/MarvinMenzerath/UpAndRunning2-Terminal-Client/releases regularly for updates.")
 }
