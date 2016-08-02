@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-const VERSION = "2.1.3"
+const VERSION = "2.2.0"
 
 func main() {
 	lib.PrintHead()
