@@ -7,20 +7,21 @@ import (
 // Calls the API and prints every website in a table
 func WebsitesCommand() {
 	res := WebsiteResponse{}
-	apiGet(GetConfiguration().ApplicationUrl+"/api/v1/websites", &res)
+	apiGet(GetConfiguration().ApplicationUrl+"/api/v2/websites", &res)
 
 	if res.Success && len(res.Websites) >= 1 {
 		// put results into two-dimensional array
 		data := make([][]string, len(res.Websites))
 		for i := range data {
-			data[i] = make([]string, 3)
+			data[i] = make([]string, 4)
 			data[i][0] = res.Websites[i].Name
 			data[i][1] = res.Websites[i].Protocol + "://" + res.Websites[i].Url
 			data[i][2] = res.Websites[i].Status
+			data[i][3] = res.Websites[i].ResponseTime
 		}
 
 		// print as table
-		PrintAsTable([]string{"Name", "URL", "Status"}, data)
+		PrintAsTable([]string{"Name", "URL", "Status", "Response Time"}, data)
 	} else {
 		println("Nothing found.")
 	}
@@ -29,7 +30,7 @@ func WebsitesCommand() {
 // Calls the API and prints the given website's status-information
 func StatusCommand(website string) {
 	res := StatusResponse{}
-	apiGet(GetConfiguration().ApplicationUrl+"/api/v1/websites/"+website+"/status", &res)
+	apiGet(GetConfiguration().ApplicationUrl+"/api/v2/websites/"+website+"/status", &res)
 
 	if res.Success {
 		println(res.WebsiteData.Name + " (" + res.WebsiteData.Url + ")")
@@ -50,7 +51,7 @@ func ResultsCommand(website string, limit int, offset int) {
 	}
 
 	res := ResultsResponse{}
-	apiGet(GetConfiguration().ApplicationUrl+"/api/v1/websites/"+website+"/results?limit="+strconv.Itoa(limit)+"&offset="+strconv.Itoa(offset), &res)
+	apiGet(GetConfiguration().ApplicationUrl+"/api/v2/websites/"+website+"/results?limit="+strconv.Itoa(limit)+"&offset="+strconv.Itoa(offset), &res)
 
 	if res.Success {
 		// put results into two-dimensional array

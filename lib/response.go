@@ -2,6 +2,10 @@ package lib
 
 // imported from UpAndRunning2
 
+// ******************
+// * USER-RESPONSES *
+// ******************
+
 // Contains a success-bool and a message, which may be empty.
 type BasicResponse struct {
 	Success bool   `json:"requestSuccess"`
@@ -31,10 +35,11 @@ type ResultsResponse struct {
 
 // Contains the Website's basic data such as name, protocol, url and current status.
 type BasicWebsite struct {
-	Name     string `json:"name"`
-	Protocol string `json:"protocol"`
-	Url      string `json:"url"`
-	Status   string `json:"status"`
+	Name         string `json:"name"`
+	Protocol     string `json:"protocol"`
+	Url          string `json:"url"`
+	Status       string `json:"status"`
+	ResponseTime string `json:"responseTime"`
 }
 
 // Contains the Website's basic data such as id, name and url.
@@ -85,6 +90,7 @@ type DetailedWebsite struct {
 	Url                  string               `json:"url"`
 	CheckMethod          string               `json:"checkMethod"`
 	Status               string               `json:"status"`
+	ResponseTime         string               `json:"responseTime"`
 	Time                 string               `json:"time"`
 	EnabledNotifications EnabledNotifications `json:"notifications"`
 }
@@ -99,20 +105,4 @@ type Notifications struct {
 type EnabledNotifications struct {
 	Pushbullet bool `json:"pushbullet"`
 	Email      bool `json:"email"`
-}
-
-// Contains the application's data, which will be used on publicly visible pages.
-type SiteData struct {
-	Title string
-}
-
-// Contains the application's data, which will be used on admin-pages.
-type AdminSiteData struct {
-	Title            string
-	Interval         int
-	Redirects        int
-	CheckWhenOffline string
-	AppVersion       string
-	GoVersion        string
-	GoArch           string
 }
