@@ -7,14 +7,20 @@ import (
 )
 
 // get the API's response to a simple HTTP-GET request
-func apiGet(url string, target interface{}) error {
+func apiGet(url string, target interface{}) {
 	r, err := http.Get(url)
-	defer r.Body.Close()
 
 	if err != nil {
-		println("Unable to read from API.")
+		println("Unable to read from API:", err.Error())
 		os.Exit(1)
 	}
 
-	return json.NewDecoder(r.Body).Decode(&target)
+	err = json.NewDecoder(r.Body).Decode(&target)
+
+	if err != nil {
+		println("Unable to read from API:", err.Error())
+		os.Exit(1)
+	}
+
+	r.Body.Close()
 }
