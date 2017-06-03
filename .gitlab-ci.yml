@@ -1,0 +1,24 @@
+image: golang:1.8-alpine
+
+variables:
+    REPO_NAME: github.com/MarvinMenzerath/UpAndRunning2-Terminal-Client
+
+before_script:
+    - go version
+
+build:
+    stage: build
+    artifacts:
+        paths:
+            - target/
+    script:
+        - apk -U add tar
+        - mkdir -p $GOPATH/src/$REPO_NAME
+        - mv $CI_PROJECT_DIR/* $GOPATH/src/$REPO_NAME/
+        - mkdir -p $CI_PROJECT_DIR/target
+        - cd $GOPATH/src/$REPO_NAME
+        - env GOOS=linux GOARCH=amd64 go build -o UpAndRunning2-Terminal-Client && tar -czf $CI_PROJECT_DIR/target/linux_amd64.tar.gz config/ LICENSE README.md UpAndRunning2-Terminal-Client
+        - env GOOS=linux GOARCH=arm go build -o UpAndRunning2-Terminal-Client && tar -czf $CI_PROJECT_DIR/target/linux_arm.tar.gz config/ LICENSE README.md UpAndRunning2-Terminal-Client
+        - env GOOS=linux GOARCH=arm64 go build -o UpAndRunning2-Terminal-Client && tar -czf $CI_PROJECT_DIR/target/linux_arm64.tar.gz config/ LICENSE README.md UpAndRunning2-Terminal-Client
+        - env GOOS=windows GOARCH=amd64 go build -o UpAndRunning2-Terminal-Client.exe && tar -czf $CI_PROJECT_DIR/target/windows_arm64.tar.gz config/ LICENSE README.md UpAndRunning2-Terminal-Client.exe
+        - env GOOS=darwin GOARCH=amd64 go build -o UpAndRunning2-Terminal-Client && tar -czf $CI_PROJECT_DIR/target/darwin_arm64.tar.gz config/ LICENSE README.md UpAndRunning2-Terminal-Client
